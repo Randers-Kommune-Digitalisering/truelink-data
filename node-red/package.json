@@ -29,10 +29,14 @@
         }
     ],
     "dependencies": {
+        "@yousolution/node-red-contrib-you-ftp-sftp": "~1.11.0",
+        "iconv-lite": "^0.6.3",
+        "jschardet": "^3.0.0",
         "node-red": "3.0.2",
+        "node-red-contrib-js-storage": "1.0.3",
         "node-red-contrib-mysql-config": "1.0.4",
         "node-red-contrib-prometheus-exporter": "1.0.5",
-        "node-red-contrib-js-storage":"1.0.3"
+        "node-red-contrib-zip": "~1.1.0"
     },
     "engines": {
         "node": ">=12"

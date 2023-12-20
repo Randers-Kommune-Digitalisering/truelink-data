@@ -1,0 +1,8 @@
+{
+    "iconv-lite": {
+        "spec": "iconv-lite",
+        "module": "iconv-lite",
+        "builtin": false,
+        "known": false
+    }
+}
