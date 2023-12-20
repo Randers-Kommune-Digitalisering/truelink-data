@@ -11,6 +11,9 @@ services:
       SFTP_HOST: test
       SFTP_PORT: 22
       SSH_KEY: test
+      SFTP_MODULE_PATH: node_modules/@yousolution
+      SFTP_SSH_KEY_FILE: key
+      SSH_KEY: test
 
       CUSTOM_DATA_ENDPOINT: custom-data-connector-service
             
