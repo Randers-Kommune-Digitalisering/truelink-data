@@ -19,5 +19,6 @@ COPY ./flows_js /data/flows_js
 
 # Copy new enstrypoint script
 COPY ./entrypoint.sh /data/entrypoint.sh
+
 # Set entrypoint script as entrypoint
 ENTRYPOINT ["/data/entrypoint.sh"]
