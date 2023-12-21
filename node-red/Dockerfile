@@ -1,8 +1,5 @@
 FROM nodered/node-red
 
-# Copy new enstrypoint script
-COPY entrypoint.sh /entrypoint.sh
-
 # Copy package.json to the WORKDIR so npm builds all
 # of your added nodes modules for Node-RED
 COPY package.json .
@@ -20,5 +17,7 @@ COPY settings.js /data/settings.js
 # https://flows.nodered.org/node/node-red-contrib-js-storage
 COPY ./flows_js /data/flows_js
 
+# Copy new enstrypoint script
+COPY ./entrypoint.sh /data/entrypoint.sh
 # Set entrypoint script as entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/data/entrypoint.sh"]
