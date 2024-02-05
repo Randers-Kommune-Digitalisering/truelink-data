@@ -9,7 +9,7 @@ def post_to_custom_data_connector(filename, file):
     headers = {'overwrite': 'true'}
     multipart_form_data = {'file': (encoded_filename, file, 'text/csv')}
 
-    r = requests.post(CUSTOM_DATA_CONNECTOR_HOST + '/in', files=multipart_form_data, headers=headers)
+    r = requests.post('http://' + CUSTOM_DATA_CONNECTOR_HOST + '/in', files=multipart_form_data, headers=headers)
     
     if r.ok:
         logging.info(filename + ' uploaded to custom-data-connector')
