@@ -52,7 +52,7 @@ def route_files(filelist, connection):
                 handle_climate_db(tt['files'], connection, tt['prefix'], tt['keyword'])
                 pass
             case Routes.BI_SYS:
-                #handle_bi_sys(tt['files'], connection, tt['prefix'])
+                handle_bi_sys(tt['files'], connection, tt['prefix'])
                 pass
             case _:
                 raise TypeError('Unknown route')
