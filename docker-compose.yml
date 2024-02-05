@@ -1,9 +1,9 @@
 version: "3.9"
 services:
-  node-red:
+  python:
     build: python
     networks:
-      - truelink
+      - python
     ports:
       - "5000:5000"
     environment:
@@ -39,8 +39,8 @@ services:
       timeout: 5s
       retries: 55
     networks:
-      - truelink
+      - python
 
 networks:
-  node_red:
-    name: truelink
+  python:
+    name: python

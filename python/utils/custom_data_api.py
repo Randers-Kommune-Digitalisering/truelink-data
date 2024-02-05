@@ -1,4 +1,5 @@
 import requests
+import logging
 import urllib.parse
 
 from config.settings import CUSTOM_DATA_CONNECTOR_HOST
@@ -11,6 +12,6 @@ def post_to_custom_data_connector(filename, file):
     r = requests.post(CUSTOM_DATA_CONNECTOR_HOST + '/in', files=multipart_form_data, headers=headers)
     
     if r.ok:
-        print(filename + ' uploaded to custom-data-connector')
+        logging.info(filename + ' uploaded to custom-data-connector')
     else:
         raise Exception('Failed to upload ' + filename)

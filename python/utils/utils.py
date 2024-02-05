@@ -4,6 +4,7 @@ import base64
 import io
 import shutil
 import warnings
+import logging
 import pandas as pd
 
 from pathlib import Path
@@ -97,7 +98,7 @@ def handle_climate_db(files, connection, prefix, keyword):
             df.to_sql(table_name, con=conn, if_exists='replace')
             conn.execute(text(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`id`);'))
 
-    print(f'Updated {keyword}')
+    logging.info(f'Updated {keyword}')
 
 
 def handle_bi_sys(files, connection, prefix):
@@ -130,4 +131,4 @@ def handle_bi_sys(files, connection, prefix):
 
         post_to_custom_data_connector(prefix + new_filename, csv_string)
 
-        print(f'Updated {prefix + new_filename}')
+        logging.info(f'Updated {prefix + new_filename}')
