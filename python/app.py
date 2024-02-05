@@ -13,6 +13,9 @@ def weekly_job():
     filelist, conn = list_all_files()
     route_files(filelist, conn)
 
+def test_job():
+    print('Testing')
+
 @app.get('/')
 def readinessprobe():
     if len(sched.get_jobs()):
@@ -26,7 +29,7 @@ if __name__ == '__main__':
     # Run at 5 am every Monday
     #sched.add_job(weekly_job, 'cron', day_of_week='mon', hour=5)
     # Testing
-    sched.add_job(weekly_job, 'cron', minute=30)
+    sched.add_job(test_job, 'interval', seconds=30)
     sched.start()
 
     app.run(host='0.0.0.0', port=FLASK_SERVER_PORT, debug=DEBUG)

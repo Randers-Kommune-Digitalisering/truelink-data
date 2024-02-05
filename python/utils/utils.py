@@ -97,7 +97,7 @@ def handle_climate_db(files, connection, prefix, keyword):
             df.to_sql(table_name, con=conn, if_exists='replace')
             conn.execute(text(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`id`);'))
 
-        print(f'Updated {keyword}')
+    print(f'Updated {keyword}')
 
 
 def handle_bi_sys(files, connection, prefix):
