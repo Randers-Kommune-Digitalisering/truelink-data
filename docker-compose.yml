@@ -1,29 +1,46 @@
 version: "3.9"
 services:
   node-red:
-    build: node-red
+    build: python
     networks:
-      - node_red
+      - truelink
     ports:
-      - "1880:1880"
+      - "5000:5000"
     environment:
-      SFTP_USER: test
-      SFTP_HOST: test
-      SFTP_PORT: 22
-      SSH_KEY_BASE64: test
-      SFTP_MODULE_PATH: node_modules/@yousolution
-      SFTP_SSH_KEY_FILE: key
+      CLIMATE_DB_USER: root
+      CLIMATE_DB_PASS: pass
+      CLIMATE_DB_HOST: db
+      CLIMATE_DB_PORT: 3306
+      CLIMATE_DB_DATABASE: demo
 
-      CUSTOM_DATA_ENDPOINT: custom-data-connector-service
-            
-      # Miljøvariablen FLOWS fortæller Node-RED IDEet hvilket flow.json den skal åbne og gemme ændringer i ved deploy.
-      FLOWS: "/data/flows.json"
+      TRUELINK_SFTP_PORT: 22
+      TRUELINK_SFTP_USER: ${TRUELINK_SFTP_USER}
+      TRUELINK_SFTP_HOST: ${TRUELINK_SFTP_HOST}
+      TRUELINK_SSH_KEY_BASE64: ${TRUELINK_SSH_KEY_BASE64}      
+
+      #CUSTOM_DATA_CONNECTOR_HOST: http://localhost:1880
       
-      # Bind mount fra codespace til den kørende containers /data.
-      # Gør det muligt at deploye flowkode direkte fra IDE og bruge git til at comitte ændringerne til repo.
-    volumes:
-      - "./node-red/:/data" 
+    depends_on: 
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.6.11
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: pass
+      MARIADB_DATABASE: demo
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=pass
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+    networks:
+      - truelink
 
 networks:
   node_red:
-    name: node_red
+    name: truelink
