@@ -9,6 +9,8 @@ from utils.utils import route_files
 from utils.truelinkSFTP import list_all_files
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+werkzeug_log = logging.getLogger('werkzeug')
+werkzeug_log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 sched = BackgroundScheduler()
