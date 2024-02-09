@@ -128,7 +128,7 @@ def handle_bi_sys(files, connection, prefix):
 
         #csv_string = io.StringIO(''.join(all_lines))
         # testing
-        csv_string = io.StringIO(''.join(all_lines[:1001]))
+        csv_string = io.StringIO(''.join(all_lines[:81141]))
         
         new_filename = Path(filename).stem.replace(' ', '_')
         post_to_custom_data_connector(prefix + new_filename, csv_string)
