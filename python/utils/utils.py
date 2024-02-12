@@ -131,9 +131,6 @@ def handle_bi_sys(files, connection, prefix):
             encoded_outfile = io.TextIOWrapper(outfile, 'utf-8', newline='')
             encoded_outfile.write('\n'.join(all_lines))
 
-            with open("output.csv", "wb") as f:
-                f.write(outfile.getbuffer())
-        #csv_string = io.StringIO(''.join(all_lines))
             new_filename = Path(filename).stem.replace(' ', '_')
             post_to_custom_data_connector(prefix + new_filename, outfile.getbuffer())
 

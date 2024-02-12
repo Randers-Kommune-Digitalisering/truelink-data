@@ -34,5 +34,3 @@ if __name__ == '__main__':
     sched.start()
 
     app.run(host='0.0.0.0', port=FLASK_SERVER_PORT, debug=DEBUG)
-
-    #weekly_job()
