@@ -115,8 +115,8 @@ def handle_bi_sys(files, connection, prefix):
             line = all_lines[i].decode('cp1252')
             
             # Strips leading equal signs from all lines
-            if(line[0] == '='):
-                line = line[1:]
+            #if(line[0] == '='):
+            #    line = line[1:]
             line = line.replace('=', '')
 
             # Adds 'n/a' to empty columns in first row - assumes empty columns should be strings
