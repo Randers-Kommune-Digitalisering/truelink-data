@@ -108,26 +108,31 @@ def handle_bi_sys(files, connection, prefix):
 
         # Assume just ONE csv file 
         csv_file = [ f for f in zip.namelist() if f.endswith( ('.csv') ) ][0]
-        with zip.open(csv_file, 'r') as f:
+        with io.BytesIO() as outfile:
+            with zip.open(csv_file, 'r') as f:
+                shutil.copyfileobj(f, outfile)
+            """
             all_lines = f.readlines()
-
-        for i in range(len(all_lines)):
-            line = all_lines[i].decode('cp1252')
             
-            # Strips leading equal signs from all lines
-            #if(line[0] == '='):
-            #    line = line[1:]
-            line = line.replace('=', '')
+            for i in range(len(all_lines)):
+                line = all_lines[i].decode('cp1252')
+                
+                # Strips leading equal signs from all lines
+                #if(line[0] == '='):
+                #    line = line[1:]
+                line = line.replace('=', '')
 
-            # Adds 'n/a' to empty columns in first row - assumes empty columns should be strings
-            if i == 1:
-                first_line_arr = line.split(';')
-                line = ';'.join(['n/a' if not i.replace('"','').strip() else i for i in first_line_arr]) + '\n'
+                # Adds 'n/a' to empty columns in first row - assumes empty columns should be strings
+                if i == 1:
+                    first_line_arr = line.split(';')
+                    line = ';'.join(['n/a' if not i.replace('"','').strip() else i for i in first_line_arr]) + '\n'
 
-            all_lines[i] = line
+                all_lines[i] = line
+            
+            csv_string = io.StringIO(''.join(all_lines))
+            """
+            new_filename = Path(filename).stem.replace(' ', '_')
+            #post_to_custom_data_connector(prefix + new_filename, csv_string)
+            post_to_custom_data_connector(prefix + new_filename, outfile)
 
-        csv_string = io.StringIO(''.join(all_lines))
-        new_filename = Path(filename).stem.replace(' ', '_')
-        post_to_custom_data_connector(prefix + new_filename, csv_string)
-
-        logging.info(f'Updated {prefix + new_filename}')
+            logging.info(f'Updated {prefix + new_filename}')
