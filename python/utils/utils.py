@@ -117,7 +117,7 @@ def handle_bi_sys(files, connection, prefix):
             # Strips leading equal signs from all lines
             if(line[0] == '='):
                 line = line[1:]
-            line = line.replace(';=', ';')
+            line = line.replace('=', '')
 
             # Adds 'n/a' to empty columns in first row - assumes empty columns should be strings
             if i == 1:
@@ -126,10 +126,7 @@ def handle_bi_sys(files, connection, prefix):
 
             all_lines[i] = line
 
-        #csv_string = io.StringIO(''.join(all_lines))
-        # testing
-        csv_string = io.StringIO(''.join(all_lines[:40571]))
-        
+        csv_string = io.StringIO(''.join(all_lines))
         new_filename = Path(filename).stem.replace(' ', '_')
         post_to_custom_data_connector(prefix + new_filename, csv_string)
 
