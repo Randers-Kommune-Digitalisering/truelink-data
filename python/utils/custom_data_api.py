@@ -14,4 +14,6 @@ def post_to_custom_data_connector(filename, file):
     if r.ok:
         logging.info(filename + ' uploaded to custom-data-connector')
     else:
+        logging.error(r.status_code)
+        logging.error(r.content)
         raise Exception('Failed to upload ' + filename)
