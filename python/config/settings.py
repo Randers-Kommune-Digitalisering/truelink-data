@@ -25,4 +25,4 @@ class Routes(Enum):
 
 class Types(Enum):
     FUEL = {'keyword': 'Brændstof', 'route': Routes.CLIMATE_DB, 'prefix': 'truelink'}
-    ECOMM = {'keyword': 'E-handelsfilter', 'route': Routes.BI_SYS, 'prefix': 'ØK'}
+    ECOMM = {'keyword': 'E-handelsfilter 2023', 'route': Routes.BI_SYS, 'prefix': 'ØK'} #Until 2024 is in same format
