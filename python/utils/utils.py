@@ -118,11 +118,12 @@ def handle_bi_sys(files, connection, prefix):
             if(line[0] == '='):
                 line = line[1:]
             line = line.replace(';=', ';')
+            line = line.replace('"','')
 
             # Adds 'n/a' to empty columns in first row - assumes empty columns should be strings
             if i == 1:
                 first_line_arr = line.split(';')
-                line = ';'.join(['"n/a"' if not i.replace('"','').strip() else i for i in first_line_arr]) + '\n'
+                line = ';'.join(['"n/a"' if not e.strip() else e for e in first_line_arr]) + '\n'
 
             all_lines[i] = line.strip()
 
