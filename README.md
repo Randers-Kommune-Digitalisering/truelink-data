@@ -86,4 +86,27 @@ I forbindelse med andre *use cases* må det forventes, at der skal udvikles andr
 Specificerer udtræk i indkøbssystemet og udvikler visualiseringer i front end (SAP BO/Superset). 
 
 ## IT og Digitalisering
-Udvikler og drifter applikationen. I første omgang er det ligeledes IT og Digitaliserings opgave løbende at tilføje af nye dataudtræk. Over tid kan denne opgave dog flyttes til Økonomiafdelingen/Indkøb. 
+Udvikler og drifter applikationen. I første omgang er det ligeledes IT og Digitaliserings opgave løbende at tilføje af nye dataudtræk. Over tid kan denne opgave dog flyttes til Økonomiafdelingen/Indkøb.
+
+# Teknisk beskrivelse
+## Kildedata
+Antagelser for data på leverandøren af indkøbssystemet's SFTP-server:
+* Alt data er i zip filer
+* Alle zip filer indehoder præcis to filer; én csv fil og én tekst fil
+
+## Datasæt
+Alle datasæt skal have 3 bestemete værdier: keyword, route og prefix.
+Datasæt med en ukendt rute ignoreres og hvis keyword ikke matcher nogen filer på SFTP serveren ignoreres det også. Det antages at keyword er unikke (kan ikke matche to datatyper). Der kan tilføjes nye datasæt i [settings.py](python/config/settings.py) under "Types".
+
+## Ruter
+Ruter er defineret i [settings.py](python/config/settings.py)
+
+### Klimaindsatsen
+Det antages at all datasæt med samme keyword er formateret ens; samme kolonner af samme type.<br>
+Datasæt med samme keyword samles i én tabel og får tilføjtet kolonnen 'opdateret'. <br>
+Tabel- og kolonnenavne ændres såldeas at æ,ø,å bliver til ae,oe,aa og mellemrum bliver til underscore.<br>
+Tabelnavnet får også tilføjet prefix, så navnet bliver i denne form: &lt;prefix>_&lt;keyword>
+
+### SAP BI
+Det antages at all datasæt med samme keyword er formateret ens; samme kolonner af samme type. Det antages også at kolonner der er tomme i første række er tekst kolonner. <br>
+Kilde navnet i SAP BI bliver zipfil navnet (hvor mellemrum bliver til underscore) med prefix tilføjet, i denne form:  &lt;prefix>&lt;zipfil navn>.csv
